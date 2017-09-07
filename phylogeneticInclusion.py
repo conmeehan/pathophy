@@ -18,25 +18,6 @@ python phylogeneticInclusion.py -t treeFile -c clusterFile
 
 """
 
-#subroutine to remove duplicates from an array
-def unique(array):
-	uniq = list(set(array))
-
-	seen = {}
-	for item in array:
-   	 seen[item] = seen.get(item, 0) + 1
-
-	uniq = seen.keys()
-
-	seen = {}
-	uniq = []
-	for item in array:
-		count = seen.get(item, 0)
-		if count == 0:
-			uniq.append(item)
-		seen[item] = count + 1
-	return uniq	
-
 #parse the inputs
 parser = argparse.ArgumentParser()
 parser.add_argument('-t', required=True, help='Newick formatted tree file')
@@ -103,7 +84,7 @@ for lcNum in range(len(clusters)):
 #create a unique list for each loose cluster and save as strings
 looseClustersStrings=[]
 for slc in looseClusters_final:
-	lc=unique(list(slc))
+	lc = list(set(slc))
 	lc.sort()
 	looseClustersStrings.append("\t".join(lc))
 looseClustersStrings.sort()	
