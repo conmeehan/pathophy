@@ -39,6 +39,21 @@ A flag for whether to include the refrence sequence (optional)<br/>
 
 See comments in script for full instructions
 
+### <b>Cutting BEAST output to desired step</b><br/>
+Script takes a MCMC log or trees file from BEAST and will cut them at a specific step
+E.g. the file may have more than 40,000 steps and you wish to cut at that step (step requested will be included)
+
+#### Input<br/>
+File to cut
+File type (log or trees)
+Last step to include
+
+#### Output<br/>
+New log or trees file. Will be named same as input with _cut<number>
+e.g. if input it Dataset.log and the last step is 40000, the output is Dataset_cut40000.log
+
+#### Usage<br/>
+python cut_BEAST_output.py --file FileToCut --type <log/trees> --step <finalStepToInclude>
 
 
 
