@@ -55,5 +55,45 @@ e.g. if input it Dataset.log and the last step is 40000, the output is Dataset_c
 #### Usage<br/>
 python cut_BEAST_output.py --file FileToCut --type <log/trees> --step <finalStepToInclude>
 
+### <b>Creating core genome alignments from isolate lists of aligned genes</b><br/>
+This consists of two scripts: isolateFilesToGeneFiles.py and genesToConcatAlign.py
 
+#### isolateFilesToGeneFiles.py
+This script is used to combine files of individual gene sequences, per isolate, into gene-specific alignment files
+
+##### Input:
+A folder of isolate files where the isolate name is everything before the first _.
+NOTE: assumes all end in .fasta
+Inside each file is a set of fasta formatted sequences where the gene name is xxx_xxx (i.e. based around 1st _ only)
+e.g. >STENO_1_6, the gene name is STENO_1
+
+##### Output:
+In a folder named geneAlignments:
+Per gene files where the file name is the gene name (e.g. STENO_1.fasta)
+Inside each file the sequences are named as isolate_geneName (e.g. 677_STENO_1)
+
+NOTE: uses biopython
+NOTE: assumes only 1 entry per gene in each isolate. Will warn if double and only keep last one
+
+##### Usage:
+python isolateFilesToGeneFiles.py --folder folderName
+
+#### genesToConcatAlign.py
+
+This script is used to combine files of gene alignments into a concatenated alignment (assumes all species/isolates in all gene alignments)
+
+##### Input:
+A folder of fasta gene alignmentds where the sequence names is the species/isolate name (identical between files)
+NOTE: assumes all end in .fasta
+
+##### Output:
+A concatenated alignment of all genes, using the species name as the sequence header (pulled from the first input file)
+A file that outlines the gene name and the start/stop positions of the gene in the concatenated alignment
+e.g. STENO_1, 1-1345
+
+NOTE: uses biopython
+NOTE: Assumes all genes have all species/isolates. If not, will mess up the alignment
+
+##### Usage:
+python genesToConcatAlign.py --folder folderName
 
