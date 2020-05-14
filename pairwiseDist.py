@@ -31,17 +31,17 @@ def pairwiseDist(seq1,seq2):
 try:
 	fastaF=open(sys.argv[1], 'r')
 except IndexError:
-	print "\n fasta file not supplied."
+	print("\n fasta file not supplied.")
 	sys.exit()
 except IOError:
-	print "\n fasta file not found in directory."
+	print("\n fasta file not found in directory.")
 	sys.exit()
 #get the characters to not be counted as variants
 try:
 	skipCharStr = sys.argv[2] 
 	skipChars=list(skipCharStr)
 except IndexError:
-	print "\ncharacters to be skipped as variants missing so assuming none are to be counted"
+	print("\ncharacters to be skipped as variants missing so assuming none are to be counted")
 	skipChars=['']
 
 
@@ -49,7 +49,7 @@ except IndexError:
 try:
 	save=open("pairwise_distances.txt",'w')
 except IOError:
-	print 'no room for save file'
+	print('no room for save file')
 	sys.exit()
 
 
@@ -82,7 +82,7 @@ names.append(re.sub(">","",name))
 #get the pairwise distances as a matrix
 dists=[[0 for col in range(len(names))] for row in range(len(names))]
 for seq1Num in range(len(align)):
-	print "processing "+names[seq1Num]
+	print("processing "+names[seq1Num])
 	for seq2Num in range(seq1Num+1,len(align)):
 		dist=pairwiseDist(align[seq1Num],align[seq2Num])
 		dists[seq1Num][seq2Num]=dist

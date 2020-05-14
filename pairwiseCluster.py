@@ -37,36 +37,36 @@ def unique(array):
 try:
 	pwMxF=open(sys.argv[1], 'r')
 except IndexError:
-	print "\n pairwise distance matrix not supplied."
+	print("\n pairwise distance matrix not supplied.")
 	sys.exit()
 except IOError:
-	print "\n pairwise distance matrix not found in directory."
+	print("\n pairwise distance matrix not found in directory.")
 	sys.exit()
 #get the cut-off
 try:
 	cutoff = float(sys.argv[2]) 
 except IndexError:
-	print "\ncluster distance cut-off not supplied."
+	print("\ncluster distance cut-off not supplied.")
 	sys.exit()	
 except ValueError:
-	print "\ncluster distance cut-off is not a number."
+	print("\ncluster distance cut-off is not a number.")
 	sys.exit()
 
 #create save files
 try:
 	saveList=open("samplesInCluster_"+sys.argv[2]+"cutoff.txt",'w')
 except IOError:
-	print 'no room for save file'
+	print('no room for save file')
 	sys.exit()
 try:
 	saveTightCluster=open("tightClusters_"+sys.argv[2]+"cutoff.txt",'w')
 except IOError:
-	print 'no room for save file'
+	print('no room for save file')
 	sys.exit()
 try:
 	saveLooseCluster=open("looseClusters_"+sys.argv[2]+"cutoff.txt",'w')
 except IOError:
-	print 'no room for save file'
+	print('no room for save file')
 	sys.exit()
 
 #read in the pairwise matrix and for each sequence keep a dictionary of what others they are in the cluster with
