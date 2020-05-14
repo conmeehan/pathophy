@@ -97,3 +97,39 @@ NOTE: Assumes all genes have all species/isolates. If not, will mess up the alig
 ##### Usage:
 python genesToConcatAlign.py --folder folderName
 
+
+### <b>Creating SNP cut off-based clusters from an alignment</b><br/>
+This consists of two scripts: pairwiseDist.py and pairwiseCluster.py
+NOTE: inputs to these scripts are position specific so must be given in a specific order
+
+#### pairwiseDist.py
+Script to take an alignment and get pairwise distance between all sequences as a matrix, with allowed exclusions
+##### Input:
+A fasta alignment (fastaAlignment)
+Characters to not count as divergent if encountered (excludedCharacters)
+e.g. if the excluded characters are N- then if a comparison has a N or - this will not be counted as different
+NOTE: is not case sensitive so N and n are the same thing
+
+##### Output:
+A mnatrix of distances between the samples.
+
+##### Usage:
+python pairwiseDist.py fastaAlignment excludedCharacters
+
+#### pairwiseCluster.py
+This script is used to cluster sequences based on a pairwise distance file. This takes the output of pairwiseDist.py as input
+
+##### Input:
+The pairwise distance matrix output from pairwiseDist.py (pairwiseDistFile)
+A SNP cut-off number (cut-off)
+##### Output:
+A file listing all sequences that are within the cut-off from another sequence
+A file where each line is a list of sequences within cut-off distance of each other (tight cluster)
+A file where each line is a list of sequences where at each sequence is within the cut-off from at least 1 other (e.g. if cutoff is 5 then seq1 and seq2 could be 5 apart and seq3 could be 10 from seq2 and 3 from seq1 but all on same line) (loose cluster)
+
+NOTE: cut-off is used as <= so if cutoff is 5 then those a distance of 5 will be counted as clustered
+NOTE2: NA can be an entry (e.g. for a tip distance that is not supported by bootstrap or unequal lengths of patterns) so if it is, count as not within cutoff
+
+##### Usage:
+python pairwiseCluster.py pairwiseDistFile cut-off
+
