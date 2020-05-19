@@ -133,3 +133,20 @@ NOTE2: NA can be an entry (e.g. for a tip distance that is not supported by boot
 ##### Usage:
 python pairwiseCluster.py pairwiseDistFile cut-off
 
+
+### <b>Detecting gene absences from MTBseq outputs</b><br/>
+Script takes a folder of Position Tables created by MTBseq and searches for genes that have no coverage (suggesting they are absent).
+
+#### Input<br/>
+Folder containing Position Tables from MTBseq (default is Position_Tables)
+The genes file from the reference used for MTBseq (can be found in the var/ref/ folder of the MTBseq installation)
+The minimum proportion of positions absent to be counted as an absent gene (default is 0.95)
+The minimum number of reads to consider a position to be covered (default is 8, same as MTBseq)
+
+#### Output<br/>
+A presence/absence map of the genes in a matrix. Names are the position table names with everythign after the first _ removed (similar to MTBseq)
+The samples are listed in the first column; the genes are listed in the first row. There is a 1 for a present gene and a 0 for an absent gene
+
+#### Usage<br/>
+python MTBseq_to_genePresAbs.py --folder Position_TablesFolder --genes genesFile --cutoff proportionAbsent --minreads coverageMinumum
+
