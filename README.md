@@ -150,3 +150,22 @@ The samples are listed in the first column; the genes are listed in the first ro
 #### Usage<br/>
 python MTBseq_to_genePresAbs.py --folder Position_TablesFolder --genes genesFile --cutoff proportionAbsent --minreads coverageMinumum
 
+### <b>Converting MTBseq Amend alignment into suitable SNP alignment with ascertainment bias correction for use in RAxML-NG</b><br/>
+This script takes the output of MTBseq and prepares the SNP alignment and invariant site count for use in RAxML-NG
+
+#### Input<br/>
+Amend folder with *_amended_u95_phylo_w12.plainIDs.fasta and *_amended_u95_phylo_w12.tab files inside (can be any starting text but must end with these suffixes)
+The reference genome used for the assembly in MTBseq
+Any characters to be ignored in terms of invariance. E.g. if the skipping characters are - and N a site such as --A-N will be removed as only 1 useable character is left
+
+#### Output<br/>
+A SNP file for use in phylogenetics (e.g. RAxML-NG). This file is named <projectName>_SNPalignment.fasta 
+A count of the invariant sites in RAxML-NG format (i.e. countA/countC/countG/countT). This file is named <projectName>_invariantSiteCount.txt
+A list of the site sin the SNP file that were removed in the 2nd step of the script. This file is named <projectName>_invariantSitesRemovedFromSNPfile.txt
+The suggested RAxML-NG command. This is placed in file <project>_suggestedRAxML-NG.sh
+(Project name is derived from the name before the first _ in the tab file above)
+
+#### Usage<br/>
+python  MTBseq_toPhylo.py --amend <apathToAmendFolder> --ref <pathToReferenceSequence> --skip <charactersNotToBeCountedAsVariants>
+If given with no options, assumes that the Amend folder is in the current folder, the reference sequence is in the current folder and named M._tuberculosis_H37Rv_2015-11-13.fasta (default for MTBseq) and the skipped characters are N- (case insensitive)
+
