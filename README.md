@@ -161,11 +161,27 @@ Any characters to be ignored in terms of invariance. E.g. if the skipping charac
 #### Output<br/>
 A SNP file for use in phylogenetics (e.g. RAxML-NG). This file is named <projectName>_SNPalignment.fasta 
 A count of the invariant sites in RAxML-NG format (i.e. countA/countC/countG/countT). This file is named <projectName>_invariantSiteCount.txt
-A list of the site sin the SNP file that were removed in the 2nd step of the script. This file is named <projectName>_invariantSitesRemovedFromSNPfile.txt
+A list of the sites in the SNP file that were removed in the 2nd step of the script. This file is named <projectName>_invariantSitesRemovedFromSNPfile.txt
 The suggested RAxML-NG command. This is placed in file <project>_suggestedRAxML-NG.sh
 (Project name is derived from the name before the first _ in the tab file above)
 
+
+
+### <b>Filtering BLAST hits by similarity and length of match</b><br/>
+This script takes a BLAST output in tabular format and the input query fasta file and filters out all entries under a certain similarity percentage and percentage of length cut-off
+
+#### Input<br/>
+BLAST table (outfmt 6 from blast+)
+The original query fasta file
+A percentage similarity/identity above which to retain hits (is >=, not just >)
+A percentage length of the query sequence above which to retain a hit (is >=, not just >)
+NOTE: assumes proper formatting of query names, so there is an exact match between query name and what is in the BLAST table
+NOTE:fasta file should be a single line per sequence, not multi-line
+
+#### Output<br/>
+A subset of results based on the filtering above
+
 #### Usage<br/>
-python  MTBseq_toPhylo.py --amend <apathToAmendFolder> --ref <pathToReferenceSequence> --skip <charactersNotToBeCountedAsVariants>
-If given with no options, assumes that the Amend folder is in the current folder, the reference sequence is in the current folder and named M._tuberculosis_H37Rv_2015-11-13.fasta (default for MTBseq) and the skipped characters are N- (case insensitive)
+python blastHitsFilterIdLength.py --blast <blast file> --query <query fasta file> --id <% id cut-off> --length <% query length cut-off>
+
 
