@@ -1,5 +1,7 @@
 # pathophy
-Scripts for aiding in pathogen phylogenetics analysis
+Scripts for aiding in pathogen phylogenetics analysis.
+Some scripts included here were used in Behruznia et al, eLife, 2025.
+
 
 ### <b>Phylogenetic Inclusion python script:</b><br/>
 This script is used to take a transmission cluster (e.g. defined by SNP cut-offs) and extend it to include all other related strains that share the common ancestor in a phylogenetic tree.<br/>
